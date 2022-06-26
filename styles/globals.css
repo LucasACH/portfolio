@@ -1,6 +1,6 @@
 :root {
-  --background: #dee1ec;
-  --foreground: #071e3d;
+  --background: 222, 225, 236;
+  --foreground: 7, 30, 61;
   --accent-color: 33, 230, 193;
   --transition: 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
   --header-height: 80px;
@@ -8,8 +8,8 @@
 }
 
 [data-theme='dark'] {
-  --background: #071e3d;
-  --foreground: #dee1ec;
+  --background: 7, 30, 61;
+  --foreground: 222, 225, 236;
 }
 
 html,
@@ -17,8 +17,8 @@ body {
   padding: 0;
   margin: 0;
   font-family: 'Roboto', sans-serif;
-  background: var(--background);
-  color: var(--foreground);
+  background-color: rgba(var(--background));
+  color: rgba(var(--foreground));
   scroll-behavior: smooth;
   transition: background var(--transition);
 }
