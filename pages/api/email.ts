@@ -24,8 +24,8 @@ export default async function handler(
 
   try {
     await client.sendAsync({
-      from: 'achaval.lucas.dev@gmail.com',
-      to: email,
+      from: email,
+      to: 'achaval.lucas@gmail.com',
       subject: subject,
       text: message,
     });
