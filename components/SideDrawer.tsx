@@ -3,13 +3,16 @@ import { NavBar } from './NavBar';
 import { ThemeSwitch } from './ThemeSwitch';
 import CrossIcon from '../assets/icons/cross.svg';
 import { IconButton } from './IconButton';
-import { Dispatch, SetStateAction, useContext } from 'react';
+import { useContext } from 'react';
 import { SideDrawerContext } from '../contexts/SideDrawerContext';
 
 export const SideDrawer: React.FC = () => {
   const { open, toggleSideDrawer } = useContext(SideDrawerContext);
   return (
-    <div className={`${styles.backdrop} ${open ? styles.open : ''}`}>
+    <div
+      className={`${styles.backdrop} ${open ? styles.open : ''}`}
+      onClick={toggleSideDrawer}
+    >
       <div className={styles.drawer}>
         <IconButton onClick={toggleSideDrawer}>
           <CrossIcon />

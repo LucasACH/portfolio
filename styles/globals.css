@@ -10,8 +10,6 @@
 [data-theme='dark'] {
   --background: 7, 30, 61;
   --foreground: 222, 225, 236;
-  background: rgba(var(--background));
-  color: rgba(var(--foreground));
 }
 
 html,
