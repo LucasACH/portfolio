@@ -1,0 +1,28 @@
+.container {
+  text-align: justify;
+  display: table;
+  margin: auto auto;
+  width: 1%;
+}
+
+.container h1 {
+  font-size: 2.5rem;
+  white-space: nowrap;
+}
+
+.container h3 {
+  font-size: 1.125rem;
+  margin: 0.8rem 0;
+  font-weight: 400;
+}
+
+@media (max-width: 660px) {
+  .container h1 {
+    font-size: 2rem;
+  }
+
+  .container h3 {
+    font-size: 1.05rem;
+    margin: 0.6rem 0;
+  }
+}

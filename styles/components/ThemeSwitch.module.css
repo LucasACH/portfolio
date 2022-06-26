@@ -1,0 +1,67 @@
+.container {
+  display: flex;
+  column-gap: 0.7rem;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  font-size: 1rem;
+  width: 2.1em;
+  height: 1.2em;
+  margin: 0;
+}
+
+.switch input {
+  width: 0;
+  height: 0;
+  opacity: 0;
+}
+
+.slider {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  padding: 0 0.1em;
+  background-color: rgb(7, 30, 61, 0.1);
+  transition: var(--transition);
+  cursor: pointer;
+}
+
+.slider:before {
+  display: flex;
+  content: '';
+  height: 1em;
+  width: 1em;
+  background-color: rgb(7, 30, 61, 0.5);
+  transition: var(--transition);
+}
+
+input:checked + .slider {
+  background-color: rgba(var(--accent-color));
+}
+
+input:checked + .slider:before {
+  transform: translateX(calc(2.1em - 1.1em - 0.1em));
+}
+
+.round {
+  border-radius: 1.2em;
+}
+
+.round:before {
+  border-radius: 100%;
+}
+
+.filled_sun {
+  fill: rgb(254, 255, 137, 1);
+  stroke: rgb(254, 255, 137, 1);
+}
+.filled_moon {
+  fill: rgba(var(--accent-color));
+  stroke: rgba(var(--accent-color));
+}

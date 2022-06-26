@@ -1,9 +1,28 @@
+:root {
+  --background: 222, 225, 236;
+  --foreground: 7, 30, 61;
+  --accent-color: 33, 230, 193;
+  --transition: 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+  --header-height: 80px;
+  --safe-area: 900px;
+}
+
+[data-theme='dark'] {
+  --background: 7, 30, 61;
+  --foreground: 222, 225, 236;
+  background: rgba(var(--background));
+  color: rgba(var(--foreground));
+}
+
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: 'Roboto', sans-serif;
+  background: rgba(var(--background));
+  color: rgba(var(--foreground));
+  scroll-behavior: smooth;
+  transition: background var(--transition);
 }
 
 a {
@@ -13,4 +32,54 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+svg {
+  height: 1.25rem;
+  transition: all var(--transition);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+  padding: 0;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(var(--foreground), 0.25);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(var(--foreground), 0.5);
+}
+
+::placeholder {
+  color: rgba(var(--foreground), 0.4);
+  opacity: 1;
+}
+
+:-ms-input-placeholder {
+  color: rgba(var(--foreground), 0.4);
+}
+
+::-ms-input-placeholder {
+  color: rgba(var(--foreground), 0.4);
 }
