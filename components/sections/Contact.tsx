@@ -8,20 +8,32 @@ import { IconButton } from '../IconButton';
 import { contactActions } from '../../constants/contactActions';
 
 export const Contact: React.FC = () => {
-  const [name, setName] = useState<string>('');
-  const [email, setEmail] = useState<string>('');
-  const [subject, setSubject] = useState<string>('');
-  const [message, setMessage] = useState<string>('');
+  const [name, setName] = useState<string>();
+  const [email, setEmail] = useState<string>();
+  const [subject, setSubject] = useState<string>();
+  const [message, setMessage] = useState<string>();
+
+  const [sendingEmail, setSendingEmail] = useState<boolean>(false);
 
   const sendEmail = () => {
-    axios
-      .post('/api/email', {
-        email: email,
-        name: name,
-        subject: subject,
-        message: message,
-      })
-      .then((res) => console.log(res.data));
+    if (sendingEmail === false) {
+      setSendingEmail(true);
+      axios
+        .post('/api/email', {
+          email: email,
+          name: name,
+          subject: subject,
+          message: message,
+        })
+        .then((res) => {
+          if (res.status === 200) {
+            console.log('Email Sent');
+          } else {
+            console.log('Email not sent');
+          }
+          setSendingEmail(false);
+        });
+    }
   };
   return (
     <div className={styles.container}>
@@ -63,7 +75,15 @@ export const Contact: React.FC = () => {
             </a>
           ))}
         </div>
-        <Button title='Send Message' onClick={sendEmail} />
+
+        <Button
+          title='Send Message'
+          onClick={sendEmail}
+          disabled={
+            !name || !email || !subject || !message || !email?.includes('@')
+          }
+          loading={sendingEmail}
+        />
       </div>
     </div>
   );

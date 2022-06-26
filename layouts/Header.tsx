@@ -1,13 +1,17 @@
+import { NavBar } from '../components/NavBar';
+import { ThemeSwitch } from '../components/ThemeSwitch';
 import { useScrollDirection } from '../hooks/useScrollDirection';
+import Logo from '../assets/icons/logo.svg';
+import BurgerIcon from '../assets/icons/burger.svg';
 
 import styles from '../styles/layouts/Header.module.css';
+import { IconButton } from '../components/IconButton';
+import { useContext } from 'react';
+import { SideDrawerContext } from '../contexts/SideDrawerContext';
 
-interface HeaderProps {
-  children: JSX.Element | JSX.Element[];
-}
-
-export const Header: React.FC<HeaderProps> = ({ children }) => {
+export const Header: React.FC = () => {
   const scrollDirection = useScrollDirection();
+  const { open, toggleSideDrawer } = useContext(SideDrawerContext);
 
   return (
     <div
@@ -19,7 +23,16 @@ export const Header: React.FC<HeaderProps> = ({ children }) => {
           : ''
       }`}
     >
-      {children}
+      <div className={styles.desktop}>
+        <NavBar />
+        <ThemeSwitch />
+      </div>
+      <div className={styles.mobile}>
+        <Logo />
+        <IconButton onClick={toggleSideDrawer}>
+          <BurgerIcon />
+        </IconButton>
+      </div>
     </div>
   );
 };

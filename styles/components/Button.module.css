@@ -1,5 +1,4 @@
 .button {
-  border: none;
   padding: 0.7rem 0.9rem;
   color: inherit;
   font-weight: 600;
@@ -12,4 +11,13 @@
 
 .button:hover {
   background: rgba(var(--foreground), 0.1);
+}
+
+.button:disabled {
+  opacity: 0.2;
+  cursor: not-allowed;
+}
+
+.button:disabled:hover {
+  background: transparent;
 }

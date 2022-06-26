@@ -37,3 +37,16 @@
   transition-duration: 150ms;
   transition: var(--transition);
 }
+
+@media (max-width: 880px) {
+  .container > :first-child {
+    display: none;
+  }
+
+  .container > .ul {
+    display: flex;
+    flex-flow: column;
+    font-size: 1.2rem;
+    row-gap: 1rem;
+  }
+}

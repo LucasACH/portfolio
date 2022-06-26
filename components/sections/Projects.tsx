@@ -18,29 +18,31 @@ export const Projects: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      {data?.map((repo) => (
-        <div className={styles.card} key={repo.id}>
-          <div className={styles.header}>
-            <h4>{repo.name}</h4>
-            <div className={styles.actions}>
-              <a href={repo.html_url} target='_blank' rel='noreferrer'>
-                <GitHubIcon />
-              </a>
-              {repo.homepage && (
-                <a href={repo.homepage} target='_blank' rel='noreferrer'>
-                  <LinkIcon />
+      {data
+        ?.filter((a) => a.name !== 'portfolio')
+        .map((repo) => (
+          <div className={styles.card} key={repo.id}>
+            <div className={styles.header}>
+              <h4>{repo.name}</h4>
+              <div className={styles.actions}>
+                <a href={repo.html_url} target='_blank' rel='noreferrer'>
+                  <GitHubIcon />
                 </a>
-              )}
+                {repo.homepage && (
+                  <a href={repo.homepage} target='_blank' rel='noreferrer'>
+                    <LinkIcon />
+                  </a>
+                )}
+              </div>
+            </div>
+            <div className={styles.content}>
+              <p>{repo.description}</p>
+            </div>
+            <div className={styles.language}>
+              <h5>{repo.language}</h5>
             </div>
           </div>
-          <div className={styles.content}>
-            <p>{repo.description}</p>
-          </div>
-          <div className={styles.language}>
-            <h5>{repo.language}</h5>
-          </div>
-        </div>
-      ))}
+        ))}
     </div>
   );
 };

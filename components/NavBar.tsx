@@ -6,9 +6,11 @@ import Logo from '../assets/icons/logo.svg';
 import { sections } from '../constants/sections';
 
 import styles from '../styles/components/NavBar.module.css';
+import { SideDrawerContext } from '../contexts/SideDrawerContext';
 
 export const NavBar: React.FC = () => {
   const { hash } = useContext(NavigationContext);
+  const { open, toggleSideDrawer } = useContext(SideDrawerContext);
 
   return (
     <div className={styles.container}>
@@ -20,6 +22,7 @@ export const NavBar: React.FC = () => {
               className={`${styles.li} ${
                 section.id == hash ? styles.selected : ''
               }`}
+              onClick={() => open && toggleSideDrawer()}
             >
               {section.title}
             </li>

@@ -12,11 +12,6 @@ export const contactActions = [
     href: 'mailto:achaval.lucas@gmail.com',
   },
   {
-    key: 'phone',
-    icon: PhoneIcon,
-    href: 'tel:+5491149751722',
-  },
-  {
     key: 'whatsapp',
     icon: WhatsAppIcon,
     href: 'https://wa.me/+5491149751722',

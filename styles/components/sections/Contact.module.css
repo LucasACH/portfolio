@@ -21,7 +21,7 @@
   column-gap: 1rem;
 }
 
-@media (max-width: 585px) {
+@media (max-width: 520px) {
   .actions {
     flex-flow: column-reverse;
     row-gap: 1rem;
@@ -29,5 +29,6 @@
 
   .buttons {
     justify-content: space-between;
+    column-gap: 0.5rem;
   }
 }
