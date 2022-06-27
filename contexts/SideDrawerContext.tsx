@@ -12,7 +12,7 @@ export const SideDrawerContext = createContext<SideDrawerContextProps>({
 });
 
 interface SideDrawerProviderProps {
-  children: JSX.Element;
+  children: JSX.Element | JSX.Element[];
 }
 export const SideDrawerProvider: React.FC<SideDrawerProviderProps> = ({
   children,
