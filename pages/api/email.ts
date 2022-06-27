@@ -17,7 +17,7 @@ export default async function handler(
 
   const client = new SMTPClient({
     user: 'achaval.lucas.dev@gmail.com',
-    password: 'fljnamgxwuqjunsu',
+    password: `${process.env.NEXT_PUBLIC_EMAIL_PASSWORD}`,
     host: 'smtp.gmail.com',
     ssl: true,
   });
