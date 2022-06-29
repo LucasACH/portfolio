@@ -1,10 +1,14 @@
-import styles from '../styles/components/SideDrawer.module.css';
+import { useContext } from 'react';
+
 import { NavBar } from './NavBar';
 import { ThemeSwitch } from './ThemeSwitch';
-import CrossIcon from '../assets/icons/cross.svg';
 import { IconButton } from './IconButton';
-import { useContext } from 'react';
+
+import CrossIcon from '../assets/icons/cross.svg';
+
 import { SideDrawerContext } from '../contexts/SideDrawerContext';
+
+import styles from '../styles/components/SideDrawer.module.css';
 
 export const SideDrawer: React.FC = () => {
   const { open, toggleSideDrawer } = useContext(SideDrawerContext);

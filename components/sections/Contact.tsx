@@ -1,65 +1,49 @@
-import axios from 'axios';
-import { useState } from 'react';
+import { FormEvent, useRef, useState } from 'react';
+import emailjs from '@emailjs/browser';
+
 import { Input } from '../Input';
 import { TextArea } from '../TextArea';
-import styles from '../../styles/components/sections/Contact.module.css';
-import { Button } from '../Button';
 import { IconButton } from '../IconButton';
+import { Button } from '../Button';
+
 import { contactActions } from '../../constants/contactActions';
 
-export const Contact: React.FC = () => {
-  const [name, setName] = useState<string>();
-  const [email, setEmail] = useState<string>();
-  const [subject, setSubject] = useState<string>();
-  const [message, setMessage] = useState<string>();
+import styles from '../../styles/components/sections/Contact.module.css';
 
+export const Contact: React.FC = () => {
   const [sendingEmail, setSendingEmail] = useState<boolean>(false);
 
-  const sendEmail = () => {
-    if (sendingEmail === false) {
-      setSendingEmail(true);
-      axios
-        .post('/api/email', {
-          email: email,
-          name: name,
-          subject: subject,
-          message: message,
-        })
-        .then((res) => {
-          if (res.status === 200) {
-            console.log('Email Sent');
-          } else {
-            console.log('Email not sent');
-          }
+  const form = useRef<HTMLFormElement | null>(null);
+
+  const sendEmail = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    setSendingEmail(true);
+
+    emailjs
+      .sendForm(
+        `${process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID}`,
+        `${process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID}`,
+        form.current as HTMLFormElement,
+        `${process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY}`
+      )
+      .then(
+        (result) => {
+          console.log(result.text);
           setSendingEmail(false);
-        });
-    }
+        },
+        (error) => {
+          console.log(error.text);
+          setSendingEmail(false);
+        }
+      );
   };
   return (
-    <div className={styles.container}>
-      <Input
-        type='text'
-        value={name}
-        onChange={(event) => setName(event.target.value)}
-        placeholder='Name'
-      />
-      <Input
-        type='email'
-        value={email}
-        onChange={(event) => setEmail(event.target.value)}
-        placeholder='Email'
-      />
-      <Input
-        type='text'
-        value={subject}
-        onChange={(event) => setSubject(event.target.value)}
-        placeholder='Subject'
-      />
-      <TextArea
-        value={message}
-        onChange={(event) => setMessage(event.target.value)}
-        placeholder='Message'
-      />
+    <form className={styles.container} ref={form} onSubmit={sendEmail}>
+      <Input type='text' name='from_name' placeholder='Name' required />
+      <Input type='email' name='from_email' placeholder='Email' required />
+      <Input type='text' name='subject' placeholder='Subject' required />
+      <TextArea name='message' placeholder='Message' required />
       <div className={styles.actions}>
         <div className={styles.buttons}>
           {contactActions.map((action) => (
@@ -75,16 +59,8 @@ export const Contact: React.FC = () => {
             </a>
           ))}
         </div>
-
-        <Button
-          title='Send Message'
-          onClick={sendEmail}
-          disabled={
-            !name || !email || !subject || !message || !email?.includes('@')
-          }
-          loading={sendingEmail}
-        />
+        <Button title='Send' loading={sendingEmail} />
       </div>
-    </div>
+    </form>
   );
 };

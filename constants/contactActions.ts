@@ -1,5 +1,4 @@
 import MailIcon from '../assets/icons/mail.svg';
-import PhoneIcon from '../assets/icons/phone.svg';
 import WhatsAppIcon from '../assets/icons/whatsapp.svg';
 import GitHubIcon from '../assets/icons/github.svg';
 import StackOverflowIcon from '../assets/icons/stackoverflow.svg';

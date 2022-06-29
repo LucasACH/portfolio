@@ -1,18 +1,19 @@
-import useSWR from 'swr';
-import { Fetcher } from 'swr';
+import useSWR, { Fetcher } from 'swr';
+
 import { GitHubRepo } from '../../interfaces/GitHubRepo';
-import styles from '../../styles/components/sections/Projects.module.css';
+
 import GitHubIcon from '../../assets/icons/github.svg';
 import LinkIcon from '../../assets/icons/link.svg';
+
+import styles from '../../styles/components/sections/Projects.module.css';
 
 export const Projects: React.FC = () => {
   const fetcher: Fetcher<GitHubRepo[], string> = (url) =>
     fetch(url).then((res) => res.json());
 
-  const { data, error } = useSWR(
-    'https://api.github.com/users/LucasACH/repos?sort=created',
-    fetcher
-  );
+  const apiUrl = 'https://api.github.com/users/LucasACH/repos?sort=created';
+
+  const { data, error } = useSWR(apiUrl, fetcher);
 
   if (error) return <div></div>;
 

@@ -1,24 +1,22 @@
-import { ChangeEventHandler } from 'react';
-
 import styles from '../styles/components/TextArea.module.css';
 
 interface TextAreaProps {
-  value: string | number | readonly string[] | undefined;
-  onChange: ChangeEventHandler<HTMLTextAreaElement> | undefined;
+  name: string | undefined;
   placeholder: string | undefined;
+  required: boolean | undefined;
 }
 
 export const TextArea: React.FC<TextAreaProps> = ({
-  value,
-  onChange,
+  name,
   placeholder,
+  required,
 }) => {
   return (
     <textarea
       className={styles.textarea}
-      value={value}
-      onChange={onChange}
+      name={name}
       placeholder={placeholder}
+      required={required}
     />
   );
 };

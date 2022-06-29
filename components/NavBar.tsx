@@ -1,12 +1,14 @@
 import { useContext } from 'react';
 import Link from 'next/link';
-import { NavigationContext } from '../contexts/NavigationContext';
+
 import Logo from '../assets/icons/logo.svg';
 
 import { sections } from '../constants/sections';
 
-import styles from '../styles/components/NavBar.module.css';
+import { NavigationContext } from '../contexts/NavigationContext';
 import { SideDrawerContext } from '../contexts/SideDrawerContext';
+
+import styles from '../styles/components/NavBar.module.css';
 
 export const NavBar: React.FC = () => {
   const { hash } = useContext(NavigationContext);
@@ -14,7 +16,11 @@ export const NavBar: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      <Logo />
+      <Link href='/#'>
+        <a>
+          <Logo />
+        </a>
+      </Link>
       <ul className={styles.ul}>
         {sections.map((section) => (
           <Link key={section.id} href={`/#${section.id}`}>
