@@ -1,6 +1,7 @@
 import { skills } from '../../constants/skills';
 
 import styles from '../../styles/components/sections/About.module.css';
+import { Button } from '../Button';
 
 export const About: React.FC = () => {
   return (
@@ -22,6 +23,17 @@ export const About: React.FC = () => {
       <div className={styles.section}>
         <h4 className={styles.title}>Interest</h4>
         <p>Sailing, 3D Modeling, Tech, Finance (Crypto), Ethical Hacking</p>
+      </div>
+      <div className={styles.section}>
+        <h4 className={styles.title}>Resume</h4>
+        <div className={styles.actions}>
+          <a href='/resume/english.pdf' download>
+            <Button title='English' />
+          </a>
+          <a href='/resume/spanish.pdf' download>
+            <Button title='Spanish' />
+          </a>
+        </div>
       </div>
     </div>
   );

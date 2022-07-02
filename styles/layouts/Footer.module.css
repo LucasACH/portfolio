@@ -5,5 +5,11 @@
   justify-content: center;
   font-size: 1rem;
   font-weight: 400;
-  color: rgba(var(--foreground), 0.4);
+  color: rgba(var(--foreground), 0.5);
+}
+
+@media (max-width: 455px) {
+  .footer {
+    font-size: 0.8rem;
+  }
 }
