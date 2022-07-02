@@ -10,8 +10,18 @@
   align-items: center;
   justify-content: space-between;
   min-height: var(--header-height);
-  backdrop-filter: blur(20px);
+  background-color: rgba(var(--background), 0.9);
   transition: box-shadow var(--transition), transform var(--transition);
+}
+
+@supports (
+  (-webkit-backdrop-filter: blur(20px)) or (backdrop-filter: blur(20px))
+) {
+  .container {
+    background-color: transparent;
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+  }
 }
 
 .hide {

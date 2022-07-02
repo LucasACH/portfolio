@@ -10,7 +10,7 @@ export const Landing: React.FC = () => {
       <h1>Hi! My name is Lucas.</h1>
       <h3>
         I&apos;m a self-taught software developer, passionate about technology.
-        I like to solve problems and to be continuously training myself.
+        I enjoy problem solving and continuous learning.
       </h3>
       <Link href='/#about'>
         <a>

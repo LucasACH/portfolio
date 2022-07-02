@@ -10,6 +10,7 @@ import { SideDrawer } from '../components/SideDrawer';
 import { sections } from '../constants/sections';
 
 import styles from '../styles/App.module.css';
+import { Footer } from '../layouts/Footer';
 
 const App: NextPage = () => {
   return (
@@ -35,6 +36,7 @@ const App: NextPage = () => {
           ))}
         </Main>
       </SafeArea>
+      <Footer />
     </div>
   );
 };

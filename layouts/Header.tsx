@@ -11,7 +11,7 @@ import { SideDrawerContext } from '../contexts/SideDrawerContext';
 
 export const Header: React.FC = () => {
   const scrollDirection = useScrollDirection();
-  const { open, toggleSideDrawer } = useContext(SideDrawerContext);
+  const { toggleSideDrawer } = useContext(SideDrawerContext);
 
   return (
     <div

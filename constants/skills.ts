@@ -1,7 +1,15 @@
 export const skills = [
   {
     title: 'Programming Languages',
-    data: ['HTML', 'CSS', 'Javascript', 'Typescript', 'Python', 'Dart'],
+    data: [
+      'HTML',
+      'CSS',
+      'Javascript',
+      'Typescript',
+      'Python',
+      'Pine Script',
+      'Dart',
+    ],
   },
   {
     title: 'Libraries & Frameworks',
@@ -33,6 +41,6 @@ export const skills = [
   },
   {
     title: 'Languages',
-    data: ['Spanish', 'English', 'German'],
+    data: ['Spanish (Native)', 'English', 'German'],
   },
 ];
