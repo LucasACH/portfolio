@@ -1,6 +1,9 @@
 .container {
   display: flex;
-  column-gap: 0.7rem;
+}
+
+.container > :nth-child(2) {
+  margin: 0 0.7rem;
 }
 
 .switch {
