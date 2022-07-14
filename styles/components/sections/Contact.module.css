@@ -40,10 +40,8 @@
   }
 
   .buttons {
+    display: flex;
+    width: 100%;
     justify-content: space-between;
-  }
-
-  .buttons > :not(:last-child) {
-    margin-right: 0.5rem;
   }
 }
