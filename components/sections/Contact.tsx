@@ -5,6 +5,9 @@ import { Input } from '../Input';
 import { TextArea } from '../TextArea';
 import { IconButton } from '../IconButton';
 import { Button } from '../Button';
+import { Snackbar } from '../Snackbar';
+
+import CheckBadgeIcon from '../../assets/icons/check-badge.svg';
 
 import { contactActions } from '../../constants/contactActions';
 
@@ -12,6 +15,8 @@ import styles from '../../styles/components/sections/Contact.module.css';
 
 export const Contact: React.FC = () => {
   const [sendingEmail, setSendingEmail] = useState<boolean>(false);
+  const [showSnackbar, setShowSnackbar] = useState<boolean>(false);
+  const [snackbarMessage, setSnackbarMessage] = useState<string>('');
 
   const form = useRef<HTMLFormElement | null>(null);
 
@@ -30,14 +35,20 @@ export const Contact: React.FC = () => {
       .then(
         (result) => {
           console.log(result.text);
+          setSnackbarMessage('Email Sent! Thanks for reaching out.');
+          setShowSnackbar(true);
           setSendingEmail(false);
+          setTimeout(() => setShowSnackbar(false), 3000);
         },
         (error) => {
-          console.log(error.text);
+          setSnackbarMessage(error.text);
+          setShowSnackbar(true);
           setSendingEmail(false);
+          setTimeout(() => setShowSnackbar(false), 3000);
         }
       );
   };
+
   return (
     <form className={styles.container} ref={form} onSubmit={sendEmail}>
       <Input type='text' name='from_name' placeholder='Name' required />
@@ -61,6 +72,11 @@ export const Contact: React.FC = () => {
         </div>
         <Button title='Send' loading={sendingEmail} />
       </div>
+      <Snackbar
+        show={showSnackbar}
+        icon={CheckBadgeIcon}
+        message={snackbarMessage}
+      />
     </form>
   );
 };
