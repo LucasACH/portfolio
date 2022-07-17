@@ -1,3 +1,4 @@
+import { type } from 'os';
 import { MouseEventHandler } from 'react';
 
 import styles from '../styles/components/Button.module.css';
@@ -8,6 +9,7 @@ interface ButtonProps {
   onClick?: MouseEventHandler<HTMLButtonElement> | undefined;
   disabled?: boolean | undefined;
   loading?: boolean;
+  type: 'button' | 'submit' | 'reset' | undefined;
 }
 
 export const Button: React.FC<ButtonProps> = ({
@@ -15,9 +17,15 @@ export const Button: React.FC<ButtonProps> = ({
   onClick,
   disabled,
   loading,
+  type,
 }) => {
   return (
-    <button className={styles.button} onClick={onClick} disabled={disabled}>
+    <button
+      className={styles.button}
+      onClick={onClick}
+      disabled={disabled}
+      type={type}
+    >
       {loading ? <Spinner /> : title}
     </button>
   );

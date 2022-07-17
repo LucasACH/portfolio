@@ -14,7 +14,12 @@ export const IconButton: React.FC<IconButtonProps> = ({
   children,
 }) => {
   return (
-    <button className={styles.button} onClick={onClick} disabled={disabled}>
+    <button
+      className={styles.button}
+      onClick={onClick}
+      disabled={disabled}
+      type='button'
+    >
       {children}
     </button>
   );
