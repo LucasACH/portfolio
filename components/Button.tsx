@@ -17,7 +17,7 @@ export const Button: React.FC<ButtonProps> = ({
   onClick,
   disabled,
   loading,
-  type,
+  type = 'button',
 }) => {
   return (
     <button
