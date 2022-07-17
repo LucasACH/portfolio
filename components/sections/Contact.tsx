@@ -23,6 +23,8 @@ export const Contact: React.FC = () => {
   const sendEmail = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    setSendingEmail(true);
+
     emailjs
       .sendForm(
         `${process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID}`,
