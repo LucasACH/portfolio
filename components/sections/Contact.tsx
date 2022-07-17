@@ -23,33 +23,28 @@ export const Contact: React.FC = () => {
   const sendEmail = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    setSendingEmail(true);
-    setShowSnackbar(true);
-    setSendingEmail(false);
-    setTimeout(() => setShowSnackbar(false), 3000);
-
-    // emailjs
-    //   .sendForm(
-    //     `${process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID}`,
-    //     `${process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID}`,
-    //     form.current as HTMLFormElement,
-    //     `${process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY}`
-    //   )
-    //   .then(
-    //     (result) => {
-    //       console.log(result.text);
-    //       setSnackbarMessage('Email Sent! Thanks for reaching out.');
-    //       setShowSnackbar(true);
-    //       setSendingEmail(false);
-    //       setTimeout(() => setShowSnackbar(false), 3000);
-    //     },
-    //     (error) => {
-    //       setSnackbarMessage(error.text);
-    //       setShowSnackbar(true);
-    //       setSendingEmail(false);
-    //       setTimeout(() => setShowSnackbar(false), 3000);
-    //     }
-    //   );
+    emailjs
+      .sendForm(
+        `${process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID}`,
+        `${process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID}`,
+        form.current as HTMLFormElement,
+        `${process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY}`
+      )
+      .then(
+        (result) => {
+          console.log(result.text);
+          setSnackbarMessage('Email Sent! Thanks for reaching out.');
+          setShowSnackbar(true);
+          setSendingEmail(false);
+          setTimeout(() => setShowSnackbar(false), 3000);
+        },
+        (error) => {
+          setSnackbarMessage(error.text);
+          setShowSnackbar(true);
+          setSendingEmail(false);
+          setTimeout(() => setShowSnackbar(false), 3000);
+        }
+      );
   };
 
   return (
