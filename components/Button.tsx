@@ -9,7 +9,7 @@ interface ButtonProps {
   onClick?: MouseEventHandler<HTMLButtonElement> | undefined;
   disabled?: boolean | undefined;
   loading?: boolean;
-  type: 'button' | 'submit' | 'reset' | undefined;
+  type?: 'button' | 'submit' | 'reset' | undefined;
 }
 
 export const Button: React.FC<ButtonProps> = ({
