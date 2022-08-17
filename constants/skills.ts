@@ -16,6 +16,8 @@ export const skills = [
     data: [
       'React JS',
       'Next JS',
+      'Express',
+      'Socket.io',
       'Tailwind CSS',
       'Material UI',
       'Flutter',
