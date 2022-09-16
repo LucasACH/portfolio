@@ -9,8 +9,9 @@ export const Landing: React.FC = () => {
     <div className={styles.container}>
       <h1>Hi! My name is Lucas.</h1>
       <h3>
-        I&apos;m a self-taught software developer, passionate about technology.
-        I enjoy problem solving and continuous learning.
+        I&apos;m a Computer Science student and a self-taught software
+        developer. I like to solve problems with the help of technology and to
+        be continuously training myself to improve my technical skills.
       </h3>
       <Link href='/#about'>
         <a>

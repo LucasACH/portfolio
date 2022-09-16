@@ -7,9 +7,10 @@ export const About: React.FC = () => {
   return (
     <div className={styles.container}>
       <p>
-        Hi! My name is Lucas. I&apos;m a self-taught software developer,
-        passionate about technology. I enjoy problem solving and continuous
-        learning.
+        Hi! My name is Lucas. I&apos;m a Computer Science student and a
+        self-taught software developer. I like to solve problems with the help
+        of technology and to be continuously training myself to improve my
+        technical skills.
       </p>
       <div className={styles.section}>
         <h4 className={styles.title}>Relevant Skills</h4>
