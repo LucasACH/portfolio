@@ -3,9 +3,9 @@
   "framework": "astro",
   "redirects": [
     {
-      "source": "/:path*",
+      "source": "/(.*)",
       "has": [{ "type": "host", "value": "www.lucasachaval.com" }],
-      "destination": "https://lucasachaval.com/:path*",
+      "destination": "https://lucasachaval.com/$1",
       "permanent": true
     }
   ]
