@@ -85,18 +85,37 @@ a:hover{color:var(--fg)}
 .icon.email:hover{opacity:.7}
 .resume{
   grid-column:2;grid-row:1;justify-self:end;align-self:start;
-  display:flex;align-items:center;
-  /* Center the 44px tap targets on the location line's text. */
+  position:relative;
+  /* Center the 44px tap target on the location line's text. */
   margin:calc((1.55em - 44px) / 2) -5px 0 0;
   font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
   color:var(--muted);font-size:.75rem;line-height:1.55;letter-spacing:.1em;text-transform:uppercase;
 }
-.resume svg{width:14px;height:14px;display:block;flex:none;margin-right:6px}
-.resume a{display:inline-flex;align-items:center;min-height:44px;padding:0 5px;color:var(--fg);transition:opacity .2s}
-.resume a:hover{opacity:.7}
-a:focus{outline:2px solid var(--focus);outline-offset:2px}
-a:focus:not(:focus-visible){outline:none}
-a:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.resume summary{display:flex;align-items:center;gap:6px;min-height:44px;padding:0 5px;color:var(--fg);list-style:none;cursor:pointer;-webkit-user-select:none;user-select:none;transition:opacity .2s}
+.resume summary::-webkit-details-marker{display:none}
+.resume summary:hover{opacity:.7}
+.resume svg{width:14px;height:14px;display:block;flex:none}
+.resume .chev{width:12px;height:12px;color:var(--muted);transition:transform .2s}
+.resume[open] .chev{transform:rotate(180deg)}
+.resume ul{
+  position:absolute;right:0;top:calc(100% - 2px);z-index:1;
+  min-width:11rem;margin:0;padding:6px;list-style:none;
+  background:rgba(18,18,18,.92);border:1px solid rgba(240,240,238,.14);border-radius:10px;
+  box-shadow:0 12px 32px rgba(0,0,0,.5);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+}
+.resume ul a{
+  display:flex;align-items:center;justify-content:space-between;gap:1.5rem;
+  min-height:44px;padding:0 10px;border-radius:6px;
+  font-family:"Geist",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:.875rem;letter-spacing:0;text-transform:none;transition:background-color .2s;
+}
+.resume ul a:hover{background:rgba(255,255,255,.07)}
+.resume ul span{color:var(--muted);font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.6875rem;letter-spacing:.1em}
+@keyframes menu{from{opacity:0;transform:translateY(-4px)}}
+@media (prefers-reduced-motion:no-preference){.resume[open] ul{animation:menu .15s ease-out}}
+a:focus,summary:focus{outline:2px solid var(--focus);outline-offset:2px}
+a:focus:not(:focus-visible),summary:focus:not(:focus-visible){outline:none}
+a:focus-visible,summary:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
 @media (max-width:799px){
   main{grid-template-columns:minmax(0,1fr);grid-template-rows:auto 1fr auto auto;row-gap:1.5rem}
   .loc{grid-column:1;grid-row:1}
@@ -122,13 +141,11 @@ a:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
   .js .rv{animation:rv .5s cubic-bezier(.2,.7,.1,1) both;animation-delay:var(--d,0ms)}
 }
 .links:focus-within{animation:none;opacity:1;transform:none}
-@media (prefers-reduced-motion:reduce){.icon,.resume a{transition:none}.rv{animation:none!important}}
-/* Keep the location and resume link on one line on the narrowest phones. */
-@media (max-width:379px){.resume .label{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}}
-/* Below that even the short form collides with the location: drop it onto its own line, label restored. */
+@media (prefers-reduced-motion:reduce){.icon,.resume summary,.resume .chev,.resume ul a{transition:none}.rv{animation:none!important}}
+/* On the narrowest phones the menu collides with the location: drop it onto its own line, opening to the right. */
 @media (max-width:339px){
-  .resume{justify-self:start;margin:calc(1.55em + .25rem + (1.55em - 44px) / 2) 0 0}
-  .resume .label{position:static;width:auto;height:auto;overflow:visible;clip-path:none}
+  .resume{justify-self:start;margin:calc(1.55em + .25rem + (1.55em - 44px) / 2) 0 0 -5px}
+  .resume ul{right:auto;left:0}
 }
 @media (max-height:480px){main{padding-top:1.5rem;row-gap:1.5rem}}
 /* Landscape phones in the stacked layout: drop the name's top spacing and scale it to the height so the links stay above the fold. */

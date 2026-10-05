@@ -46,6 +46,17 @@
     (reduce.addEventListener?reduce.addEventListener("change",update):reduce.addListener(update));
   }
 
+  /* resume menu: a native <details>, so it opens without JS; this adds dismissal */
+  var menu=document.querySelector(".resume");
+  if(menu){
+    var closeMenu=function(refocus){if(!menu.open)return;menu.open=false;if(refocus)menu.querySelector("summary").focus();};
+    document.addEventListener("click",function(e){if(!menu.contains(e.target))closeMenu(false);});
+    document.addEventListener("keydown",function(e){if(e.key==="Escape")closeMenu(menu.contains(document.activeElement));});
+    menu.addEventListener("focusout",function(e){if(e.relatedTarget&&!menu.contains(e.relatedTarget))closeMenu(false);});
+    // Close once a download is picked; the link's default action still runs.
+    menu.querySelector("ul").addEventListener("click",function(e){if(e.target.closest("a"))closeMenu(false);});
+  }
+
   /* hex name */
   var h1=document.querySelector("h1"),HEX="0123456789ABCDEF",running=false,cv=null;
   var safety=0,id=0,finished=false,moved=null;

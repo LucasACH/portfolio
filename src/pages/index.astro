@@ -53,12 +53,17 @@ const person = {
     <script type="application/ld+json" is:inline set:html={JSON.stringify(person)} />
   </Fragment>
   <p class="loc mono rv" style="--d:50ms">Buenos Aires, Argentina</p>
-  <p class="resume rv" style="--d:50ms">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0-5-5m5 5 5-5M4 21h16"></path></svg>
-    <span class="label">Resume</span>
-    <a href="/resume/lucas-achaval-resume.pdf" download="Lucas-Achaval-Resume.pdf" type="application/pdf" hreflang="en" aria-label="Download resume in English (PDF)">EN</a>
-    <a href="/resume/lucas-achaval-cv.pdf" download="Lucas-Achaval-CV.pdf" type="application/pdf" hreflang="es" lang="es" aria-label="Descargar CV en español (PDF)">ES</a>
-  </p>
+  <details class="resume rv" style="--d:50ms">
+    <summary>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0-5-5m5 5 5-5M4 21h16"></path></svg>
+      Resume
+      <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
+    </summary>
+    <ul>
+      <li><a href="/resume/lucas-achaval-resume.pdf" download="Lucas-Achaval-Resume.pdf" type="application/pdf" hreflang="en" aria-label="Download resume in English (PDF)">English<span>PDF</span></a></li>
+      <li><a href="/resume/lucas-achaval-cv.pdf" download="Lucas-Achaval-CV.pdf" type="application/pdf" hreflang="es" lang="es" aria-label="Descargar CV en español (PDF)">Español<span>PDF</span></a></li>
+    </ul>
+  </details>
   <div class="bottom">
     <h1><span>Lucas</span> <span>Achaval</span></h1>
     <div class="row">
