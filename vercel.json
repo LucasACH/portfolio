@@ -8,5 +8,25 @@
       "destination": "https://lucasachaval.com/$1",
       "permanent": true
     }
+  ],
+  "headers": [
+    {
+      "source": "/resume/lucas-achaval-resume.pdf",
+      "headers": [
+        {
+          "key": "Content-Disposition",
+          "value": "inline; filename=\"Lucas-Achaval-Resume.pdf\""
+        }
+      ]
+    },
+    {
+      "source": "/resume/lucas-achaval-cv.pdf",
+      "headers": [
+        {
+          "key": "Content-Disposition",
+          "value": "inline; filename=\"Lucas-Achaval-CV.pdf\""
+        }
+      ]
+    }
   ]
 }

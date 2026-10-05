@@ -40,7 +40,7 @@ main{
   column-gap:clamp(2rem,5vw,5rem);row-gap:1.5rem;
 }
 .mono{font-family:"Geist Mono",ui-monospace,SFMono-Regular,Menlo,monospace}
-/* The supplied mono subset lacks uppercase location glyphs: use one complete system face. */
+/* The supplied mono subset lacks uppercase glyphs: the uppercase labels (.loc, .resume) use one complete system face. */
 .loc{grid-column:1;grid-row:1;align-self:start;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;margin:0;color:var(--muted);font-size:.75rem;letter-spacing:.1em;text-transform:uppercase}
 .bottom,.row{display:contents}
 h1{
@@ -83,12 +83,24 @@ a:hover{color:var(--fg)}
 .icon.email{width:auto;padding:0 10px 0 8px;margin-left:0;color:var(--fg);font-size:.875rem;line-height:1.5;letter-spacing:0;overflow-wrap:anywhere}
 .icon.email{transition:opacity .2s}
 .icon.email:hover{opacity:.7}
+.resume{
+  grid-column:2;grid-row:1;justify-self:end;align-self:start;
+  display:flex;align-items:center;
+  /* Center the 44px tap targets on the location line's text. */
+  margin:calc((1.55em - 44px) / 2) -5px 0 0;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  color:var(--muted);font-size:.75rem;line-height:1.55;letter-spacing:.1em;text-transform:uppercase;
+}
+.resume svg{width:14px;height:14px;display:block;flex:none;margin-right:6px}
+.resume a{display:inline-flex;align-items:center;min-height:44px;padding:0 5px;color:var(--fg);transition:opacity .2s}
+.resume a:hover{opacity:.7}
 a:focus{outline:2px solid var(--focus);outline-offset:2px}
 a:focus:not(:focus-visible){outline:none}
 a:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
 @media (max-width:799px){
   main{grid-template-columns:minmax(0,1fr);grid-template-rows:auto 1fr auto auto;row-gap:1.5rem}
   .loc{grid-column:1;grid-row:1}
+  .resume{grid-column:1;grid-row:1}
   .about{grid-column:1;grid-row:3;width:min(100%,26rem)}
   h1{grid-column:1;grid-row:2;font-size:clamp(2.125rem,8.8vw,3.75rem);padding-top:2rem}
   .links{grid-column:1;grid-row:4}
@@ -110,5 +122,7 @@ a:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
   .js .rv{animation:rv .5s cubic-bezier(.2,.7,.1,1) both;animation-delay:var(--d,0ms)}
 }
 .links:focus-within{animation:none;opacity:1;transform:none}
-@media (prefers-reduced-motion:reduce){.icon{transition:none}.rv{animation:none!important}}
+@media (prefers-reduced-motion:reduce){.icon,.resume a{transition:none}.rv{animation:none!important}}
+/* Keep the location and resume link on one line on the narrowest phones. */
+@media (max-width:379px){.resume .label{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}}
 @media (max-height:480px){main{padding-top:1.5rem;row-gap:1.5rem}}
