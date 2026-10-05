@@ -48,9 +48,10 @@
 
   /* hex name */
   var h1=document.querySelector("h1"),HEX="0123456789ABCDEF",running=false,cv=null;
-  var safety=0,id=0,finished=false;
+  var safety=0,id=0,finished=false,moved=null;
   function finish(){
     finished=true;running=false;
+    if(moved)removeEventListener("resize",moved);
     clearTimeout(safety);cancelAnimationFrame(id);
     if(cv)cv.remove();
     if(h1){
@@ -59,7 +60,6 @@
     }
   }
   if(!h1||reduce.matches||!window.requestAnimationFrame||!window.CSS||!CSS.supports("mask-image","linear-gradient(black,black)"))return;
-  addEventListener("resize",finish,{once:true});
   addEventListener("scroll",finish,{once:true,passive:true});
   document.addEventListener("visibilitychange",function(){if(document.hidden)finish();});
   var motionChanged=function(){if(reduce.matches)finish();};
@@ -69,6 +69,9 @@
     if(running||finished)return;running=true;
     safety=setTimeout(finish,2500);
     var cs=getComputedStyle(h1),fs=parseFloat(cs.fontSize),r=h1.getBoundingClientRect();
+    // The overlay is pinned to where the name is now. Mobile browsers fire resize while applying the viewport or moving toolbars, so only stop if the name actually moved.
+    moved=function(){var n=h1.getBoundingClientRect();if(Math.abs(n.left-r.left)>1||Math.abs(n.top-r.top)>1||Math.abs(n.width-r.width)>1)finish();};
+    addEventListener("resize",moved);
     var dpr=Math.min(Math.ceil(devicePixelRatio||1),2);
     var pad=Math.round(fs*.25),w=Math.ceil(r.width+pad*2),h=Math.ceil(r.height+pad*2);
     var fg=cssVar("--fg");
