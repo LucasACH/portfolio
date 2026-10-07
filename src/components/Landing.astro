@@ -23,18 +23,61 @@ const resumes = [
   { lang: "es", href: "/resume/lucas-achaval-cv.pdf", download: "Lucas-Achaval-CV.pdf", name: "Español", label: "Descargar CV en español (PDF)" },
 ].sort((a) => (a.lang === lang ? -1 : 1));
 
-const person = {
+// Mirrors the resume, so search engines and LLMs get the facts without opening the PDF. Keep in sync with public/resume.md.
+const profile = {
   "@context": "https://schema.org",
-  "@type": "Person",
-  name: "Lucas Achaval",
-  url: site,
-  image: new URL(strings.en.image, site).href,
-  jobTitle: "Tech Lead",
-  worksFor: { "@type": "Organization", name: "Shield" },
-  address: { "@type": "PostalAddress", addressLocality: "Buenos Aires", addressCountry: "AR" },
-  email: `mailto:${links.email}`,
-  knowsLanguage: ["en", "es"],
-  sameAs: [links.github, links.linkedin],
+  "@type": "ProfilePage",
+  url,
+  inLanguage: lang,
+  mainEntity: {
+    "@type": "Person",
+    "@id": `${site}#person`,
+    name: "Lucas Achaval",
+    givenName: "Lucas",
+    familyName: "Achaval",
+    url: site,
+    image: new URL(strings.en.image, site).href,
+    description:
+      "Tech lead and software engineer in fintech, payments, and stablecoins. Early engineer at Shield and builder of its stablecoin payments system.",
+    jobTitle: "Tech Lead",
+    worksFor: { "@type": "Organization", name: "Shield" },
+    hasOccupation: {
+      "@type": "Occupation",
+      name: "Software Engineer",
+      skills: "TypeScript, Node.js, Fastify, PostgreSQL, Next.js, React, AWS, Terraform, Solidity, payments, stablecoins, KYC/KYB",
+    },
+    alumniOf: [
+      { "@type": "CollegeOrUniversity", name: "Universidad Nacional de San Martín (UNSAM)" },
+      { "@type": "CollegeOrUniversity", name: "University of Buenos Aires (UBA)" },
+    ],
+    knowsAbout: [
+      "Software engineering",
+      "Payments",
+      "Stablecoins",
+      "Fintech",
+      "KYC/KYB",
+      "TypeScript",
+      "Node.js",
+      "PostgreSQL",
+      "Next.js",
+      "React",
+      "AWS",
+      "Terraform",
+      "Ethereum",
+      "Solidity",
+      "DeFi",
+      "AI coding agents",
+    ],
+    address: { "@type": "PostalAddress", addressLocality: "Buenos Aires", addressCountry: "AR" },
+    email: `mailto:${links.email}`,
+    knowsLanguage: ["es", "en", "de"],
+    sameAs: [links.github, links.linkedin],
+    subjectOf: [
+      { "@type": "DigitalDocument", name: "Resume (PDF)", url: new URL("/resume/lucas-achaval-resume.pdf", site).href, inLanguage: "en" },
+      { "@type": "DigitalDocument", name: "CV (PDF)", url: new URL("/resume/lucas-achaval-cv.pdf", site).href, inLanguage: "es" },
+      { "@type": "DigitalDocument", name: "Resume (Markdown)", url: new URL("/resume.md", site).href, inLanguage: "en" },
+    ],
+  },
 };
 ---
 
@@ -44,6 +87,7 @@ const person = {
     {locales.map((l) => <link rel="alternate" hreflang={l} href={new URL(paths[l], site).href} />)}
     <link rel="alternate" hreflang="x-default" href={site} />
     <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="alternate" type="text/markdown" href="/resume.md" hreflang="en" title="Lucas Achaval · Resume (Markdown)" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content={url} />
     <meta property="og:title" content={t.title} />
@@ -61,7 +105,7 @@ const person = {
     <meta name="twitter:description" content={t.socialDescription} />
     <meta name="twitter:image" content={image} />
     <meta name="twitter:image:alt" content={t.imageAlt} />
-    <script type="application/ld+json" is:inline set:html={JSON.stringify(person)} />
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(profile)} />
   </Fragment>
   <p class="loc mono rv" style="--d:50ms">{t.location}</p>
   <div class="actions rv" style="--d:50ms">

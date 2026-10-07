@@ -1,0 +1,17 @@
+# Lucas Achaval
+
+> Tech lead and software engineer in Buenos Aires, Argentina, working remotely in fintech, payments, and stablecoins. Tech lead at Shield and builder of its stablecoin payments system. Contact: achaval.lucas@gmail.com.
+
+This is a personal site. The full resume is available as Markdown below; the PDFs have the same content.
+
+## Resume
+
+- [Resume (Markdown)](https://lucasachaval.com/resume.md): experience, education, skills, and languages in plain text
+- [Resume (PDF, English)](https://lucasachaval.com/resume/lucas-achaval-resume.pdf)
+- [CV (PDF, Spanish)](https://lucasachaval.com/resume/lucas-achaval-cv.pdf)
+
+## Profiles
+
+- [Website](https://lucasachaval.com/): English, with a Spanish version at https://lucasachaval.com/es/
+- [LinkedIn](https://www.linkedin.com/in/lucas-achaval)
+- [GitHub](https://github.com/LucasACH)
