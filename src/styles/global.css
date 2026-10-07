@@ -157,3 +157,21 @@ a:focus-visible,summary:focus-visible{outline:2px solid var(--focus);outline-off
   main{padding-bottom:max(1.5rem,env(safe-area-inset-bottom));row-gap:1rem}
   h1{padding-top:0;font-size:min(3.5rem,14vh)}
 }
+/* Resume page: one readable column instead of the landing grid. */
+main.doc{display:block;max-width:calc(44rem + 2 * var(--gutter));margin:0 auto}
+.doc nav{display:flex;justify-content:space-between;gap:1rem;margin:calc((1.55em - 44px) / 2) -5px 0;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.75rem;letter-spacing:.1em;text-transform:uppercase}
+.doc nav a{display:flex;align-items:center;min-height:44px;padding:0 5px;color:var(--muted);transition:color .2s}
+.doc nav a:hover{color:var(--fg)}
+.doc article{color:var(--muted);text-wrap:pretty}
+.doc h1{margin:2.5rem 0 .5rem -.04em;color:var(--fg);padding-top:0;font-size:clamp(2.5rem,7vw,3.75rem)}
+.doc h1 + p{margin:0 0 1.5rem;color:var(--fg);font-size:clamp(1.0625rem,.55vw + .95rem,1.25rem);line-height:1.45;letter-spacing:-.015em}
+.doc h2{margin:3rem 0 1rem;padding-top:1rem;border-top:1px solid rgba(240,240,238,.14);color:var(--muted);font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.75rem;font-weight:400;letter-spacing:.1em;text-transform:uppercase}
+.doc h3{margin:2rem 0 .25rem;color:var(--fg);font-size:1.125rem;font-weight:600;letter-spacing:-.01em}
+.doc h3 + p{margin:0 0 .75rem;font-size:.875rem}
+.doc p{margin:0 0 1rem}
+.doc ul{margin:0 0 1rem;padding-left:1.1rem}
+.doc li + li{margin-top:.4rem}
+.doc li::marker{color:rgba(240,240,238,.35)}
+.doc article a{color:var(--fg);text-decoration:underline;text-decoration-color:rgba(240,240,238,.35);text-underline-offset:.2em;overflow-wrap:anywhere;transition:text-decoration-color .2s}
+.doc article a:hover{text-decoration-color:var(--fg)}
+@media (prefers-reduced-motion:reduce){.doc nav a,.doc article a{transition:none}}

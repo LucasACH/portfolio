@@ -64,7 +64,8 @@
   });
 
   /* hex name */
-  var h1=document.querySelector("h1"),HEX="0123456789ABCDEF",running=false,cv=null;
+  // Only the big name on the landing and 404 pages; the resume page's heading has no spans to reveal.
+  var h1=document.querySelector(".bottom h1"),HEX="0123456789ABCDEF",running=false,cv=null;
   var safety=0,id=0,finished=false,moved=null;
   function finish(){
     finished=true;running=false;

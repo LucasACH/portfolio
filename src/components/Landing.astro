@@ -19,11 +19,13 @@ const links = {
 
 // The visitor's own language comes first in the menu.
 const resumes = [
-  { lang: "en", href: "/resume/lucas-achaval-resume.pdf", download: "Lucas-Achaval-Resume.pdf", name: "English", label: "Download resume in English (PDF)" },
-  { lang: "es", href: "/resume/lucas-achaval-cv.pdf", download: "Lucas-Achaval-CV.pdf", name: "Español", label: "Descargar CV en español (PDF)" },
+  { lang: "en", href: "/resume/lucas-achaval-resume.pdf", download: "Lucas-Achaval-Resume.pdf", name: "English", format: "PDF", label: "Download resume in English (PDF)" },
+  { lang: "es", href: "/resume/lucas-achaval-cv.pdf", download: "Lucas-Achaval-CV.pdf", name: "Español", format: "PDF", label: "Descargar CV en español (PDF)" },
 ].sort((a) => (a.lang === lang ? -1 : 1));
+// The English resume as a page, last; it is the crawlable copy of the PDFs.
+const resumePage = { en: "Read online", es: "Ver online" }[lang];
 
-// Mirrors the resume, so search engines and LLMs get the facts without opening the PDF. Keep in sync with public/resume.md.
+// Mirrors the resume, so search engines and LLMs get the facts without opening the PDF. Keep in sync with src/resume.md.
 const profile = {
   "@context": "https://schema.org",
   "@type": "ProfilePage",
@@ -40,7 +42,7 @@ const profile = {
     description:
       "Tech lead and software engineer in fintech, payments, and stablecoins. Early engineer at Shield and builder of its stablecoin payments system.",
     jobTitle: "Tech Lead",
-    worksFor: { "@type": "Organization", name: "Shield" },
+    worksFor: { "@type": "Organization", name: "Shield", url: "https://www.getshield.xyz/" },
     hasOccupation: {
       "@type": "Occupation",
       name: "Software Engineer",
@@ -73,6 +75,7 @@ const profile = {
     knowsLanguage: ["es", "en", "de"],
     sameAs: [links.github, links.linkedin],
     subjectOf: [
+      { "@type": "WebPage", name: "Resume", url: new URL("/resume/", site).href, inLanguage: "en" },
       { "@type": "DigitalDocument", name: "Resume (PDF)", url: new URL("/resume/lucas-achaval-resume.pdf", site).href, inLanguage: "en" },
       { "@type": "DigitalDocument", name: "CV (PDF)", url: new URL("/resume/lucas-achaval-cv.pdf", site).href, inLanguage: "es" },
       { "@type": "DigitalDocument", name: "Resume (Markdown)", url: new URL("/resume.md", site).href, inLanguage: "en" },
@@ -121,8 +124,9 @@ const profile = {
       </summary>
       <ul>
         {resumes.map((r) => (
-          <li><a href={r.href} download={r.download} type="application/pdf" hreflang={r.lang} lang={r.lang === lang ? undefined : r.lang} aria-label={r.label}>{r.name}<span>PDF</span></a></li>
+          <li><a href={r.href} download={r.download} type="application/pdf" hreflang={r.lang} lang={r.lang === lang ? undefined : r.lang} aria-label={r.label}>{r.name}<span>{r.format}</span></a></li>
         ))}
+        <li><a href="/resume/" hreflang="en">{resumePage}<span>EN</span></a></li>
       </ul>
     </details>
   </div>

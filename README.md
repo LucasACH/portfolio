@@ -13,6 +13,10 @@ The build emits a single self-contained `dist/index.html`: CSS, the Geist font s
 animation script are inlined, so the page renders from one request. `@astrojs/sitemap` generates
 the sitemap; `public/` holds the favicons and `robots.txt`.
 
+The resume lives in `src/resume.md`. It is rendered as a page at `/resume/` and served raw at
+`/resume.md` (for LLMs, alongside `public/llms.txt`). The PDFs in `public/resume/` are separate files: update
+them when the Markdown changes.
+
 The page ships in English at `/` and Spanish at `/es/`; the copy lives in `src/i18n.ts` and both
 routes render `src/components/Landing.astro`. Each page links the other with `hreflang`, and so
 does the sitemap. A visitor on `/` whose browser lists Spanish first (`Accept-Language`) is

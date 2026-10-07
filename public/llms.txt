@@ -6,6 +6,7 @@ This is a personal site. The full resume is available as Markdown below; the PDF
 
 ## Resume
 
+- [Resume (web page)](https://lucasachaval.com/resume/): the same resume as HTML
 - [Resume (Markdown)](https://lucasachaval.com/resume.md): experience, education, skills, and languages in plain text
 - [Resume (PDF, English)](https://lucasachaval.com/resume/lucas-achaval-resume.pdf)
 - [CV (PDF, Spanish)](https://lucasachaval.com/resume/lucas-achaval-cv.pdf)
