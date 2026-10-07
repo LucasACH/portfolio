@@ -7,6 +7,16 @@
       "has": [{ "type": "host", "value": "www.lucasachaval.com" }],
       "destination": "https://lucasachaval.com/$1",
       "permanent": true
+    },
+    {
+      "source": "/resume/english.pdf",
+      "destination": "/resume/lucas-achaval-resume.pdf",
+      "permanent": true
+    },
+    {
+      "source": "/resume/spanish.pdf",
+      "destination": "/resume/lucas-achaval-cv.pdf",
+      "permanent": true
     }
   ],
   "headers": [
