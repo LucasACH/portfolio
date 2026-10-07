@@ -2,16 +2,17 @@
 import "../styles/global.css";
 
 interface Props {
+  lang?: string;
   title: string;
   description?: string;
   noindex?: boolean;
 }
 
-const { title, description, noindex = false } = Astro.props;
+const { lang = "en", title, description, noindex = false } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={lang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />

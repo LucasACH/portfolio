@@ -9,6 +9,23 @@
       "permanent": true
     },
     {
+      "source": "/",
+      "has": [{ "type": "cookie", "key": "lang", "value": "es" }],
+      "missing": [{ "type": "query", "key": "lang" }],
+      "destination": "/es/",
+      "permanent": false
+    },
+    {
+      "source": "/",
+      "has": [{ "type": "header", "key": "accept-language", "value": "^\\s*[eE][sS](?:[-;,].*)?$" }],
+      "missing": [
+        { "type": "cookie", "key": "lang" },
+        { "type": "query", "key": "lang" }
+      ],
+      "destination": "/es/",
+      "permanent": false
+    },
+    {
       "source": "/resume/english.pdf",
       "destination": "/resume/lucas-achaval-resume.pdf",
       "permanent": true

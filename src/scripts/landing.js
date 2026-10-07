@@ -57,6 +57,12 @@
     menu.querySelector("ul").addEventListener("click",function(e){if(e.target.closest("a"))closeMenu(false);});
   }
 
+  /* language switch: remember the pick so / stops following the browser language (the redirect lives in vercel.json) */
+  var langLink=document.querySelector(".lang");
+  if(langLink)langLink.addEventListener("click",function(){
+    try{document.cookie="lang="+langLink.getAttribute("data-lang")+";path=/;max-age=31536000;samesite=lax"+(location.protocol==="https:"?";secure":"");}catch(e){}
+  });
+
   /* hex name */
   var h1=document.querySelector("h1"),HEX="0123456789ABCDEF",running=false,cv=null;
   var safety=0,id=0,finished=false,moved=null;

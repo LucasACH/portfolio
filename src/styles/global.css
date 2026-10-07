@@ -83,14 +83,18 @@ a:hover{color:var(--fg)}
 .icon.email{width:auto;padding:0 10px 0 8px;margin-left:0;color:var(--fg);font-size:.875rem;line-height:1.5;letter-spacing:0;overflow-wrap:anywhere}
 .icon.email{transition:opacity .2s}
 .icon.email:hover{opacity:.7}
-.resume{
+.actions{
   grid-column:2;grid-row:1;justify-self:end;align-self:start;
-  position:relative;
-  /* Center the 44px tap target on the location line's text. */
+  display:flex;align-items:center;gap:4px;
+  /* Center the 44px tap targets on the location line's text. */
   margin:calc((1.55em - 44px) / 2) -5px 0 0;
   font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
   color:var(--muted);font-size:.75rem;line-height:1.55;letter-spacing:.1em;text-transform:uppercase;
 }
+.lang{display:flex;align-items:center;gap:6px;min-height:44px;padding:0 5px;color:var(--muted);transition:color .2s}
+.lang:hover{color:var(--fg)}
+.lang svg{width:14px;height:14px;display:block;flex:none}
+.resume{position:relative}
 .resume summary{display:flex;align-items:center;gap:6px;min-height:44px;padding:0 5px;color:var(--fg);list-style:none;cursor:pointer;-webkit-user-select:none;user-select:none;transition:opacity .2s}
 .resume summary::-webkit-details-marker{display:none}
 .resume summary:hover{opacity:.7}
@@ -119,7 +123,7 @@ a:focus-visible,summary:focus-visible{outline:2px solid var(--focus);outline-off
 @media (max-width:799px){
   main{grid-template-columns:minmax(0,1fr);grid-template-rows:auto 1fr auto auto;row-gap:1.5rem}
   .loc{grid-column:1;grid-row:1}
-  .resume{grid-column:1;grid-row:1}
+  .actions{grid-column:1;grid-row:1}
   .about{grid-column:1;grid-row:3;width:min(100%,26rem)}
   h1{grid-column:1;grid-row:2;font-size:clamp(2.125rem,8.8vw,3.75rem);padding-top:2rem}
   .links{grid-column:1;grid-row:4}
@@ -141,10 +145,10 @@ a:focus-visible,summary:focus-visible{outline:2px solid var(--focus);outline-off
   .js .rv{animation:rv .5s cubic-bezier(.2,.7,.1,1) both;animation-delay:var(--d,0ms)}
 }
 .links:focus-within{animation:none;opacity:1;transform:none}
-@media (prefers-reduced-motion:reduce){.icon,.resume summary,.resume .chev,.resume ul a{transition:none}.rv{animation:none!important}}
-/* On the narrowest phones the menu collides with the location: drop it onto its own line, opening to the right. */
-@media (max-width:339px){
-  .resume{justify-self:start;margin:calc(1.55em + .25rem + (1.55em - 44px) / 2) 0 0 -5px}
+@media (prefers-reduced-motion:reduce){.icon,.lang,.resume summary,.resume .chev,.resume ul a{transition:none}.rv{animation:none!important}}
+/* On narrow phones the actions collide with the location: drop them onto their own line, the menu opening to the right. */
+@media (max-width:389px){
+  .actions{justify-self:start;margin:calc(1.55em + .25rem + (1.55em - 44px) / 2) 0 0 -5px}
   .resume ul{right:auto;left:0}
 }
 @media (max-height:480px){main{padding-top:1.5rem;row-gap:1.5rem}}
