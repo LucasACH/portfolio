@@ -1,4 +1,5 @@
 ---
+import Analytics from "@vercel/analytics/astro";
 import "../styles/global.css";
 
 interface Props {
@@ -27,6 +28,7 @@ const { lang = "en", title, description, noindex = false, class: className } = A
     <meta name="color-scheme" content="dark" />
     <meta name="theme-color" content="#030303" />
     <slot name="head" />
+    <Analytics />
   </head>
   <body>
     <canvas id="bg" aria-hidden="true"></canvas>
@@ -35,5 +37,6 @@ const { lang = "en", title, description, noindex = false, class: className } = A
       <slot />
     </main>
     <script src="../scripts/landing.js"></script>
+    <script src="../scripts/track.js"></script>
   </body>
 </html>
