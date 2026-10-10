@@ -10,14 +10,14 @@ pnpm preview
 ```
 
 The build emits a single self-contained `dist/index.html`: CSS, the Geist font subsets and the
-animation script are inlined, so the page renders from one request.
-
-Moving between pages is a cross-document view transition: the pages crossfade and the name moves between the
-landing and the resume, over a background that carries on where the last page left it
-(`src/scripts/background.js`, inlined right after its canvas so the first frame is drawn before first paint).
-The entrance animation and the hex reveal of the name play once per tab; later page views skip them, and a reload plays
-them again. Chromium prefetches same-site links on hover (speculation rules in `src/layouts/Base.astro`). `@astrojs/sitemap` generates
+animation script are inlined, so the page renders from one request. `@astrojs/sitemap` generates
 the sitemap; `public/` holds the favicons and `robots.txt`.
+
+Moving between pages is a cross-document view transition: the pages crossfade over a background that carries on
+where the last page left it (`src/scripts/background.js`, inlined right after its canvas so the first frame is drawn
+before first paint). The entrance animation and the hex reveal of the name play once per tab; later page views skip
+them, and a reload plays them again. Chromium prefetches same-site links on hover (speculation rules in
+`src/layouts/Base.astro`).
 
 The resume lives in `src/resume.md`. It is rendered as a page at `/resume/` and served raw at
 `/resume.md` (for LLMs, alongside `public/llms.txt`). The PDFs in `public/resume/` are separate files: update

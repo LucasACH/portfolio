@@ -2,13 +2,16 @@
 @font-face{font-family:"Geist Mono";font-style:normal;font-weight:400;font-display:swap;src:url("../assets/fonts/geist-mono-latin.woff2") format("woff2")}
 :root{
   --bg:#030303;--blob:#4a4a4a;--fg:#f0f0ee;--muted:#bdbdb9;--focus:#f0f0ee;--grain:.24;--blend:screen;
+  /* Root background, hidden behind the canvas. Arc fills the window with it for a few frames on every navigation,
+     so it is the page's median tone rather than --bg: a dim flicker instead of a black flash. */
+  --fill:#202020;
   --gutter:clamp(1.25rem,5vw,4rem);
   --content-width:calc(100vw - 2 * var(--gutter));
   color-scheme:dark;
 }
 *,*::before,*::after{box-sizing:border-box}
 html,body{margin:0;padding:0}
-html{-webkit-text-size-adjust:100%;text-size-adjust:100%;background:var(--bg)}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;background:var(--fill)}
 body{
   color:var(--fg);
   font-family:"Geist",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
@@ -51,8 +54,6 @@ h1{
   line-height:1.05;letter-spacing:-.055em;
 }
 h1 > span{display:inline-block}
-/* The name is one shared element across the landing and resume pages (see the view transition below); hugging the text keeps the morph from stretching it. */
-.name,.doc h1{width:fit-content;view-transition-name:name}
 .about{
   grid-column:1;grid-row:3;justify-self:start;align-self:start;
   margin:0;min-width:0;width:100%;max-width:36ch;color:var(--muted);
@@ -127,7 +128,7 @@ a:focus-visible,summary:focus-visible{outline:2px solid var(--focus);outline-off
   .loc{grid-column:1;grid-row:1}
   .actions{grid-column:1;grid-row:1}
   .about{grid-column:1;grid-row:3;width:min(100%,26rem)}
-  h1{grid-column:1;grid-row:2;font-size:clamp(2.125rem,8.8vw,3.75rem);margin-top:2rem}
+  h1{grid-column:1;grid-row:2;font-size:clamp(2.125rem,8.8vw,3.75rem);padding-top:2rem}
   .links{grid-column:1;grid-row:4}
 }
 @media (max-width:599px){
@@ -135,7 +136,7 @@ a:focus-visible,summary:focus-visible{outline:2px solid var(--focus);outline-off
     padding: max(1.5rem,env(safe-area-inset-top)) max(1.25rem,env(safe-area-inset-right)) max(1.5rem,env(safe-area-inset-bottom)) max(1.25rem,env(safe-area-inset-left));
     row-gap:1.125rem;
   }
-  h1{font-size:clamp(2.5rem,10.5vw,3.5rem);line-height:1.05;margin-top:2rem}
+  h1{font-size:clamp(2.5rem,10.5vw,3.5rem);line-height:1.05;padding-top:2rem}
   .about{width:100%;max-width:34ch;font-size:1.0625rem;line-height:1.5}
   .links{
     justify-self:start;justify-content:flex-start;
@@ -150,12 +151,11 @@ a:focus-visible,summary:focus-visible{outline:2px solid var(--focus);outline-off
   /* The name waits for the hex reveal to mask it (`revealed`); if the script never runs, it shows after 2.5s. */
   .js:not(.seen):not(.revealed) .bottom h1{animation:hold 2.5s}
 }
-/* Same-origin page loads crossfade over the persistent background, and the name moves between the landing and the resume. */
+/* Same-origin page loads crossfade over the persistent background. */
 @media (prefers-reduced-motion:no-preference){
   @view-transition{navigation:auto}
 }
 ::view-transition-group(*){animation-duration:.3s;animation-timing-function:cubic-bezier(.2,.7,.1,1)}
-::view-transition-group(name){animation-duration:.45s}
 .links:focus-within{animation:none;opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){.icon,.lang,.resume summary,.resume .chev,.resume ul a{transition:none}.rv{animation:none!important}}
 /* On narrow phones the actions collide with the location: drop them onto their own line, the menu opening to the right. */
@@ -167,7 +167,7 @@ a:focus-visible,summary:focus-visible{outline:2px solid var(--focus);outline-off
 /* Landscape phones in the stacked layout: drop the name's top spacing and scale it to the height so the links stay above the fold. */
 @media (max-width:799px) and (max-height:480px){
   main{padding-bottom:max(1.5rem,env(safe-area-inset-bottom));row-gap:1rem}
-  h1{margin-top:0;font-size:min(3.5rem,14vh)}
+  h1{padding-top:0;font-size:min(3.5rem,14vh)}
 }
 /* Resume page: one readable column instead of the landing grid. */
 main.doc{display:block;max-width:calc(44rem + 2 * var(--gutter));margin:0 auto}
@@ -175,7 +175,7 @@ main.doc{display:block;max-width:calc(44rem + 2 * var(--gutter));margin:0 auto}
 .doc nav a{display:flex;align-items:center;min-height:44px;padding:0 5px;color:var(--muted);transition:color .2s}
 .doc nav a:hover{color:var(--fg)}
 .doc article{color:var(--muted);text-wrap:pretty}
-.doc h1{margin:2.5rem 0 .5rem -.04em;color:var(--fg);font-size:clamp(2.5rem,7vw,3.75rem)}
+.doc h1{margin:2.5rem 0 .5rem -.04em;color:var(--fg);padding-top:0;font-size:clamp(2.5rem,7vw,3.75rem)}
 .doc h1 + p{margin:0 0 1.5rem;color:var(--fg);font-size:clamp(1.0625rem,.55vw + .95rem,1.25rem);line-height:1.45;letter-spacing:-.015em}
 .doc h2{margin:3rem 0 1rem;padding-top:1rem;border-top:1px solid rgba(240,240,238,.14);color:var(--muted);font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.75rem;font-weight:400;letter-spacing:.1em;text-transform:uppercase}
 .doc h3{margin:2rem 0 .25rem;color:var(--fg);font-size:1.125rem;font-weight:600;letter-spacing:-.01em}
