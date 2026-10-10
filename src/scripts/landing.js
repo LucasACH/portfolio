@@ -1,50 +1,10 @@
-// Animated blob background and hex reveal of the name. The `js` class is set inline in <head> so the reveal styles apply before first paint.
+// Resume menu, language switch and the hex reveal of the name (the background is src/scripts/background.js).
+// Inlined at the end of <body>, so the reveal starts as soon as the page is parsed instead of after the deferred module scripts.
 (function(){
   var root=document.documentElement;
   var reduce=matchMedia("(prefers-reduced-motion: reduce)");
   function context(canvas){try{return canvas.getContext("2d");}catch(e){return null;}}
   function cssVar(n){return getComputedStyle(root).getPropertyValue(n).trim();}
-  function rgb(hex){hex=hex.replace("#","");if(hex.length===3)hex=hex.replace(/./g,"$&$&");var n=parseInt(hex,16);return[(n>>16)&255,(n>>8)&255,n&255];}
-
-  /* background */
-  var bg=document.getElementById("bg"),bx=context(bg);
-  var W=0,H=0,base,blob,raf=0,last=0,t=40;
-  var blobs=[
-    {x:.8,y:.3,r:.42,ax:.198,ay:.220,sx:.11,sy:.083,p:0},
-    {x:.15,y:1,r:.34,ax:.220,ay:.132,sx:.077,sy:.12,p:2},
-    {x:1,y:.9,r:.26,ax:.154,ay:.220,sx:.13,sy:.07,p:4},
-    {x:.4,y:-.05,r:.2,ax:.286,ay:.110,sx:.09,sy:.15,p:1}
-  ];
-  function colors(){base=rgb(cssVar("--bg"));blob=rgb(cssVar("--blob"));}
-  function sizeBg(){W=128;H=Math.max(64,Math.round(128*innerHeight/Math.max(innerWidth,1)));bg.width=W;bg.height=H;safeDraw();}
-  function draw(){
-    if(!bx)return;
-    bx.fillStyle="rgb("+base+")";bx.fillRect(0,0,W,H);
-    var M=Math.max(W,H),c="rgba("+blob+",";
-    for(var i=0;i<blobs.length;i++){
-      var b=blobs[i],x=(b.x+b.ax*Math.sin(t*b.sx+b.p))*W,y=(b.y+b.ay*Math.cos(t*b.sy+b.p*1.3))*H,r=b.r*M*(1+.08*Math.sin(t*.1+b.p));
-      var g=bx.createRadialGradient(x,y,0,x,y,r);
-      g.addColorStop(0,c+"1)");g.addColorStop(.25,c+".55)");g.addColorStop(.6,c+".08)");g.addColorStop(1,c+"0)");
-      bx.fillStyle=g;bx.fillRect(0,0,W,H);
-    }
-  }
-  function frame(now){
-    raf=requestAnimationFrame(frame);
-    if(now-last<50)return;
-    var dt=last?Math.min(now-last,100):0;last=now;t+=dt/1000*1.5;safeDraw();
-  }
-  function start(){if(bx&&window.requestAnimationFrame&&!raf&&!reduce.matches&&!document.hidden){last=0;raf=requestAnimationFrame(frame);}}
-  function stop(){if(raf){cancelAnimationFrame(raf);raf=0;}}
-  function safeDraw(){
-    try{draw();}catch(e){stop();bx=null;bg.width=0;bg.height=0;}
-  }
-  function update(){stop();safeDraw();start();}
-  if(bx){
-    colors();sizeBg();update();
-    var rt;addEventListener("resize",function(){clearTimeout(rt);rt=setTimeout(sizeBg,120);});
-    document.addEventListener("visibilitychange",update);
-    (reduce.addEventListener?reduce.addEventListener("change",update):reduce.addListener(update));
-  }
 
   /* resume menu: a native <details>, so it opens without JS; this adds dismissal */
   var menu=document.querySelector(".resume");
@@ -69,6 +29,8 @@
   var safety=0,id=0,finished=false,moved=null;
   function finish(){
     finished=true;running=false;
+    // Lifts the CSS hold that keeps the name hidden until the mask is on.
+    root.classList.add("revealed");
     if(moved)removeEventListener("resize",moved);
     clearTimeout(safety);cancelAnimationFrame(id);
     if(cv)cv.remove();
@@ -77,8 +39,11 @@
       hs.webkitMaskImage=hs.maskImage=hs.webkitMaskRepeat=hs.maskRepeat=hs.webkitMaskPosition=hs.maskPosition=hs.webkitMaskSize=hs.maskSize="";
     }
   }
-  if(!h1||reduce.matches||!window.requestAnimationFrame||!window.CSS||!CSS.supports("mask-image","linear-gradient(black,black)"))return;
+  // Plays once per visit, like the entrance animation; `seen` is set in <head>.
+  if(!h1||root.classList.contains("seen")||reduce.matches||!window.requestAnimationFrame||!window.CSS||!CSS.supports("mask-image","linear-gradient(black,black)")){finish();return;}
   addEventListener("scroll",finish,{once:true,passive:true});
+  // Leaving mid-reveal: show the whole name in the outgoing view transition snapshot.
+  addEventListener("pageswap",finish);
   document.addEventListener("visibilitychange",function(){if(document.hidden)finish();});
   var motionChanged=function(){if(reduce.matches)finish();};
   if(reduce.addEventListener)reduce.addEventListener("change",motionChanged);
@@ -121,16 +86,28 @@
     var mc=context(mk);if(!mc){finish();return;}
     var mimg=mc.createImageData(cols,rows),md=mimg.data;
     for(var z=0;z<md.length;z+=4){md[z]=md[z+1]=md[z+2]=0;md[z+3]=0;}
-    var hs=h1.style;
+    var hs=h1.style,decoding=false;
+    // Safari decodes each new url() mask asynchronously and hides the name until it is ready, so swapping one in per
+    // frame blinks the name. WebKit can mask with a live canvas instead, drawn synchronously.
+    var live=document.getCSSCanvasContext&&CSS.supports("-webkit-mask-image","-webkit-canvas(a)")?document.getCSSCanvasContext("2d","hexname",cols,rows):null;
+    function applyMask(u){hs.webkitMaskImage=hs.maskImage="url("+u+")";}
     function setMask(){
+      if(live){live.putImageData(mimg,0,0);return;}
       mc.putImageData(mimg,0,0);
-      var u="url("+mk.toDataURL()+")";
-      hs.webkitMaskImage=hs.maskImage=u;
+      // Elsewhere, decode each frame before swapping it in, skipping frames that arrive mid-decode.
+      var u=mk.toDataURL(),img=new Image();
+      if(!img.decode){applyMask(u);return;}
+      if(decoding)return;decoding=true;
+      img.src=u;
+      img.decode().then(function(){decoding=false;if(!finished)applyMask(u);},function(){decoding=false;});
     }
     hs.webkitMaskRepeat=hs.maskRepeat="no-repeat";
     hs.webkitMaskPosition=hs.maskPosition=(-pad)+"px "+(-pad)+"px";
     hs.webkitMaskSize=hs.maskSize=(cols*cell)+"px "+(rows*cell)+"px";
-    setMask();
+    // The first, empty mask goes on at once: the name is hidden either way until it takes.
+    if(live){live.putImageData(mimg,0,0);hs.webkitMaskImage="-webkit-canvas(hexname)";}
+    else{mc.putImageData(mimg,0,0);applyMask(mk.toDataURL());}
+    root.classList.add("revealed");
 
     cv=document.createElement("canvas");cv.setAttribute("aria-hidden","true");
     cv.width=W2;cv.height=h*dpr;

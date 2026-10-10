@@ -1,6 +1,8 @@
 ---
 import Analytics from "@vercel/analytics/astro";
 import "../styles/global.css";
+import background from "../scripts/background.js?raw";
+import landing from "../scripts/landing.js?raw";
 
 interface Props {
   lang?: string;
@@ -19,7 +21,18 @@ const { lang = "en", title, description, noindex = false, class: className } = A
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
-    <script is:inline>document.documentElement.classList.add("js");</script>
+    <script is:inline>
+      // `js` lets the reveal styles apply before first paint. `seen` marks every page view after the first in this tab,
+      // which skips the entrance animation; a reload plays it again.
+      (function(){
+        var c=document.documentElement.classList;c.add("js");
+        try{
+          var nav=performance.getEntriesByType("navigation")[0];
+          if(sessionStorage.getItem("seen")&&!(nav&&nav.type==="reload"))c.add("seen");
+          else sessionStorage.setItem("seen","1");
+        }catch(e){}
+      })();
+    </script>
     {description && <meta name="description" content={description} />}
     {noindex && <meta name="robots" content="noindex" />}
     <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48" />
@@ -28,15 +41,20 @@ const { lang = "en", title, description, noindex = false, class: className } = A
     <meta name="color-scheme" content="dark" />
     <meta name="theme-color" content="#030303" />
     <slot name="head" />
+    <!-- Chromium fetches a page when its link is hovered or pressed, so the next page is ready before the click lands. -->
+    <script type="speculationrules" is:inline>
+      {"prefetch":[{"where":{"and":[{"href_matches":"/*"},{"not":{"selector_matches":"[download]"}}]},"eagerness":"moderate"}]}
+    </script>
     <Analytics />
   </head>
   <body>
     <canvas id="bg" aria-hidden="true"></canvas>
+    <script is:inline set:html={background} />
     <div class="grain" aria-hidden="true"></div>
     <main class={className}>
       <slot />
     </main>
-    <script src="../scripts/landing.js"></script>
+    <script is:inline set:html={landing} />
     <script src="../scripts/track.js"></script>
   </body>
 </html>
